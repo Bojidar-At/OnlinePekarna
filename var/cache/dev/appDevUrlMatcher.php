@@ -101,24 +101,54 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         if (0 === strpos($pathinfo, '/a')) {
-            if (0 === strpos($pathinfo, '/admin/user')) {
-                // admin_users
-                if (rtrim($pathinfo, '/') === '/admin/user') {
-                    if (substr($pathinfo, -1) !== '/') {
-                        return $this->redirect($pathinfo.'/', 'admin_users');
+            if (0 === strpos($pathinfo, '/admin')) {
+                if (0 === strpos($pathinfo, '/admin/categories')) {
+                    // admin_categories
+                    if (rtrim($pathinfo, '/') === '/admin/categories') {
+                        if (substr($pathinfo, -1) !== '/') {
+                            return $this->redirect($pathinfo.'/', 'admin_categories');
+                        }
+
+                        return array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\CategoryController::listCategories',  '_route' => 'admin_categories',);
                     }
 
-                    return array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\UserController::indexAction',  '_route' => 'admin_users',);
+                    // admin_categories_create
+                    if ($pathinfo === '/admin/categories/create') {
+                        return array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\CategoryController::createCategory',  '_route' => 'admin_categories_create',);
+                    }
+
+                    // admin_categories_edit
+                    if (0 === strpos($pathinfo, '/admin/categories/edit') && preg_match('#^/admin/categories/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_categories_edit')), array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\CategoryController::editCategory',));
+                    }
+
+                    // admin_categories_delete
+                    if (0 === strpos($pathinfo, '/admin/categories/delete') && preg_match('#^/admin/categories/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_categories_delete')), array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\CategoryController::deleteCategory',));
+                    }
+
                 }
 
-                // admin_user_edit
-                if (0 === strpos($pathinfo, '/admin/user/edit') && preg_match('#^/admin/user/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_user_edit')), array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\UserController::editUser',));
-                }
+                if (0 === strpos($pathinfo, '/admin/user')) {
+                    // admin_users
+                    if (rtrim($pathinfo, '/') === '/admin/user') {
+                        if (substr($pathinfo, -1) !== '/') {
+                            return $this->redirect($pathinfo.'/', 'admin_users');
+                        }
 
-                // admin_user_delete
-                if (0 === strpos($pathinfo, '/admin/user/delete') && preg_match('#^/admin/user/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_user_delete')), array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\UserController::deleteUser',));
+                        return array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\UserController::indexAction',  '_route' => 'admin_users',);
+                    }
+
+                    // admin_user_edit
+                    if (0 === strpos($pathinfo, '/admin/user/edit') && preg_match('#^/admin/user/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_user_edit')), array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\UserController::editUser',));
+                    }
+
+                    // admin_user_delete
+                    if (0 === strpos($pathinfo, '/admin/user/delete') && preg_match('#^/admin/user/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_user_delete')), array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\UserController::deleteUser',));
+                    }
+
                 }
 
             }
@@ -162,6 +192,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'SoftUniBlogBundle\\Controller\\HomeController::indexAction',  '_route' => 'blog_index',);
         }
         not_blog_index:
+
+        // category_articles
+        if (0 === strpos($pathinfo, '/category') && preg_match('#^/category/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'category_articles')), array (  '_controller' => 'SoftUniBlogBundle\\Controller\\HomeController::listArticles',));
+        }
 
         if (0 === strpos($pathinfo, '/log')) {
             // security_login

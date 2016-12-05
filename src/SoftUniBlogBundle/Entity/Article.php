@@ -62,6 +62,59 @@ class Article
      */
     private $author;
 
+    /**
+     * @var int
+     * @ORM\Column(name="category_id", type="integer")
+     */
+    private $categoryId;
+
+
+
+
+    /**
+     * @var Category
+     * @ORM\ManyToOne(targetEntity="SoftUniBlogBundle\Entity\Category", inversedBy="articles")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
+
+
+    /**
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param Category $category
+     */
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getCategoryId(): int
+    {
+        return $this->categoryId;
+    }
+
+
+
+    /**
+     * @param int $categoryId
+     */
+    public function setCategoryId(int $categoryId)
+    {
+        $this->categoryId = $categoryId;
+    }
+
+
     public function __construct()
     {
         $this->dateAdded = new \DateTime('now');
