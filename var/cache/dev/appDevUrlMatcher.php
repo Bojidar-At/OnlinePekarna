@@ -211,6 +211,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // articles_with_tag
+        if (0 === strpos($pathinfo, '/tags') && preg_match('#^/tags/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'articles_with_tag')), array (  '_controller' => 'SoftUniBlogBundle\\Controller\\TagController::articles',));
+        }
+
         // user_register
         if ($pathinfo === '/register') {
             return array (  '_controller' => 'SoftUniBlogBundle\\Controller\\UserController::registerAction',  '_route' => 'user_register',);

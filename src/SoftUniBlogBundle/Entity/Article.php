@@ -2,7 +2,12 @@
 
 namespace SoftUniBlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * Article
@@ -69,12 +74,38 @@ class Article
     private $categoryId;
 
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ManyToMany(targetEntity="SoftUniBlogBundle\Entity\Tag")
+     * @JoinTable(name="articles_tags",
+     *     joinColumns={@JoinColumn(name="article_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@JoinColumn(name="tag_id", referencedColumnName="id")}
+     *     )
+     */
+    private $tags;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
 
 
     /**
      * @var Category
-     * @ORM\ManyToOne(targetEntity="SoftUniBlogBundle\Entity\Category", inversedBy="articles")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @ManyToOne(targetEntity="SoftUniBlogBundle\Entity\Category", inversedBy="articles")
+     * @JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 
@@ -118,6 +149,7 @@ class Article
     public function __construct()
     {
         $this->dateAdded = new \DateTime('now');
+        $this->tags = new ArrayCollection();
     }
 
     /**
