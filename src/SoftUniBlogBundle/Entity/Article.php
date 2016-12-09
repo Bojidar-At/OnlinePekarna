@@ -209,7 +209,14 @@ class Article
      */
     private function setSummary()
     {
-        $this->summary = substr($this->getContent(), 0, strlen($this->getContent()) / 2) . "...";
+        $re = $re = '/\w*\W*\w*\W*\w*\W*/';
+        $str = $this->getContent();
+        preg_match_all($re, $str, $matches);
+    //    var_dump($matches[0][0]);exit;
+
+        $this->summary = $matches[0][0] . "...";
+
+   //     $this->summary = substr($this->getContent(), 0, strlen($this->getContent()) / 2) . "...";
     }
 
 

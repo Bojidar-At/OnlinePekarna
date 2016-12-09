@@ -27,11 +27,11 @@
                         <div class="pull-right">
 
                             {% if app.getUser() and (app.getUser().isAuthor(article) or app.getUser().isAdmin())  %}
-                            <a class="btn btn-success btn-xs" href="{{ path('article_edit', {'id': article.id}) }}">Edit</a>
-                            <a class="btn btn-danger btn-xs" href="{{ path('article_delete', {'id': article.id}) }}">Delete</a>
+                            <a class="btn btn-success btn-xs" href="{{ path('article_edit', {'id': article.id}) }}">Редактирай</a>
+                            <a class="btn btn-danger btn-xs" href="{{ path('article_delete', {'id': article.id}) }}">Изтрий</a>
                             {% endif %}
 
-                            <a class="btn btn-default btn-xs" href="{{ path('blog_index') }}">back &raquo;</a>
+                            <a class="btn btn-default btn-xs" href="{{ path('blog_index') }}">Назад &raquo;</a>
                         </div>
                     </footer>
                 </article>

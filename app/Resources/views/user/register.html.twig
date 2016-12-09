@@ -7,7 +7,7 @@
         <div class="well">
             <form class="form-horizontal" action="{{ path('user_register') }}" method="post">
                 <fieldset>
-                    <legend>Login</legend>
+                    <legend>РЕГИСТРАЦИЯ</legend>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="user_email">Email</label>
                         <div class="col-sm-4 ">
@@ -15,27 +15,27 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="user_fullName">Full Name</label>
+                        <label class="col-sm-4 control-label" for="user_fullName">Имена</label>
                         <div class="col-sm-4 ">
-                            <input type="text" class="form-control" id="user_fullName" placeholder="Full Name" name="user[fullName]" required>
+                            <input type="text" class="form-control" id="user_fullName" placeholder="Имена" name="user[fullName]" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="user_password_first">Password</label>
+                        <label class="col-sm-4 control-label" for="user_password_first">Парола</label>
                         <div class="col-sm-4">
-                            <input type="password" class="form-control" id="user_password_first" placeholder="Password" name="user[password][first]" required>
+                            <input type="password" class="form-control" id="user_password_first" placeholder="Парола" name="user[password][first]" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-4 control-label" for="user_password_second">Confirm Password</label>
+                        <label class="col-sm-4 control-label" for="user_password_second">Потвърди Паролата</label>
                         <div class="col-sm-4">
-                            <input type="password" class="form-control" id="user_password_second" placeholder="Password" name="user[password][second]" required>
+                            <input type="password" class="form-control" id="user_password_second" placeholder="Потвърди Паролата" name="user[password][second]" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-4">
-                            <a class="btn btn-default" href="{{ path('blog_index') }}">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <a class="btn btn-default" href="{{ path('blog_index') }}">Откажи</a>
+                            <button type="submit" class="btn btn-primary">Потвърди</button>
                         </div>
                     </div>
 
