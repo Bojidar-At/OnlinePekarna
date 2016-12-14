@@ -129,6 +129,33 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
                 }
 
+                if (0 === strpos($pathinfo, '/admin/raws')) {
+                    // admin_raws
+                    if (rtrim($pathinfo, '/') === '/admin/raws') {
+                        if (substr($pathinfo, -1) !== '/') {
+                            return $this->redirect($pathinfo.'/', 'admin_raws');
+                        }
+
+                        return array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\RawController::listRaws',  '_route' => 'admin_raws',);
+                    }
+
+                    // admin_raws_create
+                    if ($pathinfo === '/admin/raws/create') {
+                        return array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\RawController::createRaw',  '_route' => 'admin_raws_create',);
+                    }
+
+                    // admin_raws_edit
+                    if (0 === strpos($pathinfo, '/admin/raws/edit') && preg_match('#^/admin/raws/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_raws_edit')), array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\RawController::editRaw',));
+                    }
+
+                    // admin_raws_delete
+                    if (0 === strpos($pathinfo, '/admin/raws/delete') && preg_match('#^/admin/raws/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_raws_delete')), array (  '_controller' => 'SoftUniBlogBundle\\Controller\\Admin\\RawController::deleteCategory',));
+                    }
+
+                }
+
                 if (0 === strpos($pathinfo, '/admin/user')) {
                     // admin_users
                     if (rtrim($pathinfo, '/') === '/admin/user') {

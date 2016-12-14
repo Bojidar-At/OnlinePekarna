@@ -86,6 +86,35 @@ class Article
     private $tags;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ManyToMany(targetEntity="SoftUniBlogBundle\Entity\Raw")
+     * @JoinTable(name="articles_raws",
+     *     joinColumns={@JoinColumn(name="article_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@JoinColumn(name="raw_id", referencedColumnName="id")}
+     *     )
+     */
+    private $raws;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRaws()
+    {
+        return $this->raws;
+    }
+
+    /**
+     * @param ArrayCollection $raws
+     */
+    public function setRaws(ArrayCollection $raws)
+    {
+        $this->raws = $raws;
+    }
+
+
+
+    /**
      * @return ArrayCollection
      */
     public function getTags()
@@ -150,6 +179,7 @@ class Article
     {
         $this->dateAdded = new \DateTime('now');
         $this->tags = new ArrayCollection();
+        $this->raws = new ArrayCollection();
     }
 
     /**

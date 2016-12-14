@@ -3,6 +3,7 @@
 namespace SoftUniBlogBundle\Form;
 
 use SoftUniBlogBundle\Entity\Category;
+use SoftUniBlogBundle\Entity\Raw;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,6 +19,9 @@ class ArticleType extends AbstractType
             ->add('content', TextType::class)
             ->add('category', EntityType::class,[
                 'class'=>Category::class
+            ])
+            ->add('raws', EntityType::class,[
+                'class'=>Raw::class
             ]);
     }
 
