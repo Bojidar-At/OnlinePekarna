@@ -38,13 +38,8 @@ class ArticleController extends Controller
             $tagsString = $request->get('tags');
             $tags=$this->getTags($em, $tagsString);
 
-            $rawsString = $request->get('raws[]');
-            $raws = $this ->getRaws($em, $rawsString);
-
-
             $article->setAuthor($this->getUser());
             $article->setTags($tags);
-            $article->setRaws($raws);
 
             $em->persist($article);
             $em->flush();
@@ -192,30 +187,6 @@ class ArticleController extends Controller
         return $tagsToSave;
     }
 
-    /**
-     * @param $em EntityManager
-     * @param $rawsString array
-     * @return ArrayCollection
-     */
-    private function getRaws($em, array $rawsString)
-    {
-        $rawRepo = $this->getDoctrine()->getRepository(Raw::class);
-        $rawsToSave = new ArrayCollection();
-
-        foreach ($rawsString as $raws){
-
-            $raw = $rawRepo->findOneBy(['name'=>$raws]);
-
-            if($raw == null){
-                $raw = new Tag();
-                $raw->setName($raws);
-                $em->persist($raw);
-            }
-
-            $rawsToSave->add($raw);
-        }
-        return $rawsToSave;
-    }
 }
 
 

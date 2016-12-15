@@ -179,7 +179,6 @@ class Article
     {
         $this->dateAdded = new \DateTime('now');
         $this->tags = new ArrayCollection();
-        $this->raws = new ArrayCollection();
     }
 
     /**

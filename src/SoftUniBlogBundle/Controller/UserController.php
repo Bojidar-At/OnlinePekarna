@@ -5,6 +5,7 @@ namespace SoftUniBlogBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SoftUniBlogBundle\Entity\Article;
 use SoftUniBlogBundle\Entity\Role;
 use SoftUniBlogBundle\Entity\User;
 use SoftUniBlogBundle\Form\UserType;
@@ -58,6 +59,9 @@ class UserController extends Controller
     public function profileAction()
     {
         $user = $this->getUser();
-        return $this->render("user/profile.html.twig", ['user'=>$user]);
+        $userArticles = $this->getDoctrine()->getRepository(Article::class)
+            ->findOneBy(['author'=>$user]);
+        return $this->render("user/profile.html.twig", ['user'=>$user,
+            'author'=>$userArticles]);
     }
 }
